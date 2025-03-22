@@ -2,9 +2,9 @@
 
 if(isset($_SESSION['loggedIn'])){
 
-    $name = validate($_SESSION['loggedInUser']['name']);
+    $username = validate($_SESSION['loggedInUser']['username']);
 
-    $query = "SELECT * FROM cashier_staff WHERE name='$name' LIMIT 1";
+    $query = "SELECT * FROM cashier_staff WHERE username ='$username' LIMIT 1";
     $result = mysqli_query($conn, $query);
 
     if(mysqli_num_rows($result) == 0){

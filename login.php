@@ -53,8 +53,8 @@ if(isset($_SESSION['loggedIn'])){
         <h4 class="text-dark mb-3">Login to Kopikuys</h4>
         <form action="login-code.php" method="POST">
             <div class="mb-3">
-                <label>Enter Name</label>
-                <input type="text" name="name" class="form-control" required />
+                <label>Enter Username</label>
+                <input type="text" name="username" class="form-control" required />
             </div>
             <div class="mb-3">
                 <label>Enter Password</label>

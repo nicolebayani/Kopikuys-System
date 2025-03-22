@@ -62,7 +62,12 @@
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Position</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -70,7 +75,12 @@
                         <?php foreach($cashier_staff as $cashier_staffItem) :?>
                         <tr>
                             <td><?= $cashier_staffItem['id'] ?></td>
-                            <td><?= $cashier_staffItem['name'] ?></td>
+                            <td><?= $cashier_staffItem['first_name'] ?></td>
+                            <td><?= $cashier_staffItem['middle_name'] ?></td>
+                            <td><?= $cashier_staffItem['last_name'] ?></td>
+                            <td><?= $cashier_staffItem['email'] ?></td>
+                            <td><?= $cashier_staffItem['username'] ?></td>
+                            <td><?= $cashier_staffItem['position'] ?></td>
                             <td>
                                 <a href="cashier_staff-edit.php?id=<?= $cashier_staffItem['id']; ?>" class="btn btn-success btn-sm">Edit</a>
                                 <a href="cashier_staff-delete.php?id=<?= $cashier_staffItem['id']; ?>" class="btn btn-danger btn-sm">Delete</a>

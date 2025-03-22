@@ -75,7 +75,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="">Name *</label>
+                                    <label for="">Username *</label>
                                     <input type="text" name="name" required value="<?=$adminData['data']['name']; ?>" class="form-control" />
                                 </div>
                                 <div class="col-md-6 mb-3">

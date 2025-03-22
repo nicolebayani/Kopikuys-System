@@ -4,12 +4,12 @@ require 'config/function.php';
 
 if(isset($_POST['loginBtn'])){
 
-    $name = validate($_POST['name']);
+    $username = validate($_POST['username']);
     $password = validate($_POST['password']);
 
-    if($name != '' && $password != ''){
+    if($username != '' && $password != ''){
 
-        $query = "SELECT * FROM cashier_staff WHERE name = '$name' LIMIT 1";
+        $query = "SELECT * FROM cashier_staff WHERE username = '$username' LIMIT 1";
         $result = mysqli_query($conn, $query);
         if($result){
 
@@ -25,14 +25,14 @@ if(isset($_POST['loginBtn'])){
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['loggedInUser'] = [
                     'user_id' => $row['id'],
-                    'name' => $row['name'],
+                    'username' => $row['username'],
 
                 ];
 
                 redirect('admin/assets/admins-create.php','Logged In Succeessfully :)');
 
             }else{
-                redirect('login.php','Invalid Name');
+                redirect('login.php','Invalid Username');
             }
         }else{
             redirect('login.php','Something went wrong!');
@@ -41,9 +41,5 @@ if(isset($_POST['loginBtn'])){
         redirect('login.php','Please fill all fields!'); 
     }
 }
-
-
-
-
 
 ?>
