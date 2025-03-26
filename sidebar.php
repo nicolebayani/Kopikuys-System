@@ -10,16 +10,12 @@
                 <div class="sb-sidenav-menu-heading" style="color: #5a4a42;">Interface</div>
 
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" style="color: #5a4a42;">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: #5a4a42;"></i></div>
+                     <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: #5a4a42;"></i></div>
                     Create Order
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html" style="color: #5a4a42;">Static Navigation</a>
-                        <a class="nav-link" href="layout-sidenav-light.html" style="color: #5a4a42;">Light Sidenav</a>
-                    </nav>
-                </div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    </div>
+
 
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages" style="color: #5a4a42;">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open" style="color: #5a4a42;"></i></div>
@@ -27,29 +23,8 @@
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth" style="color: #5a4a42;">
-                            Authentication
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="login.html" style="color: #5a4a42;">Login</a>
-                                <a class="nav-link" href="register.html" style="color: #5a4a42;">Register</a>
-                                <a class="nav-link" href="password.html" style="color: #5a4a42;">Forgot Password</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError" style="color: #5a4a42;">
-                            Error
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="401.html" style="color: #5a4a42;">401 Page</a>
-                                <a class="nav-link" href="404.html" style="color: #5a4a42;">404 Page</a>
-                                <a class="nav-link" href="500.html" style="color: #5a4a42;">500 Page</a>
-                            </nav>
-                        </div>
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="orders-view.php" style="color: #5a4a42;">All Orders</a>
                     </nav>
                 </div>
 

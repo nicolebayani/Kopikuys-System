@@ -57,8 +57,8 @@
                         <input type="text" name="first name" required class="form-control" />
                     </div>
                 <div class="col-md-8 mb-3">
-                        <label for="">Middle Name *</label>
-                        <input type="text" name="middle name" required class="form-control" />
+                        <label for="">Middle Name </label>
+                        <input type="text" name="middle name" class="form-control" />
                     </div>
                 <div class="col-md-8 mb-3">
                         <label for="">Last Name *</label>

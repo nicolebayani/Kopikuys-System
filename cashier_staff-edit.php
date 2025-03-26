@@ -74,18 +74,34 @@
                             <input type="hidden" name="adminId" value="<?= $adminData['data']['id']; ?>" >
 
                             <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="">Username *</label>
-                                    <input type="text" name="name" required value="<?=$adminData['data']['name']; ?>" class="form-control" />
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="">Password *</label>
-                                    <input type="password" name="password" class="form-control" />
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="">Position *</label>
-                                    <input type="text" name="position" value="<?=$adminData['data']['position']; ?>" class="form-control" />
-                                </div>
+                <div class="col-md-8 mb-3">
+                        <label for="">First Name *</label>
+                        <input type="text" name="first name" required class="form-control" />
+                    </div>
+                <div class="col-md-8 mb-3">
+                        <label for="">Middle Name </label>
+                        <input type="text" name="middle name"  class="form-control" />
+                    </div>
+                <div class="col-md-8 mb-3">
+                        <label for="">Last Name *</label>
+                        <input type="text" name="last name" required class="form-control" />
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label for="">Email *</label>
+                        <input type="email" name="email" required class="form-control" />
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label for="">Username *</label>
+                        <input type="text" name="username" required class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Password *</label>
+                        <input type="password" name="password" required class="form-control" />
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="">Position *</label>
+                        <input type="text" name="position" required class="form-control" />
+                    </div>
                                 <div class="col-md-12 mb-3 text-end">
                                     <button type="submit" name="updateCashier/Staff" class="btn btn-primary">Update</button>
                                 </div>

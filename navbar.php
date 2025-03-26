@@ -17,7 +17,7 @@
         
         <?php if(isset($_SESSION['loggedIn'])) : ?>
         <li class="nav-item">
-          <a class="nav-link" href="#" style="color: #8b5a2b;"><?= $_SESSION['loggedInUser']['name'];?></a>
+          <a class="nav-link" href="#" style="color: #8b5a2b;"><?= $_SESSION['loggedInUser']['username'];?></a>
         </li>
         <li class="nav-item">
           <a class="btn btn-danger" href="logout.php" style="background-color: #8b5a2b; border-color: #8b5a2b;">
