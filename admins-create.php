@@ -1,7 +1,7 @@
 <?php include ('includes/header.php'); ?>
 
 <style>
-    .beige-card {
+    .beige-card {;
         background-color:rgb(255, 255, 255); 
         color:rgb(0, 0, 0);
     }
@@ -31,6 +31,7 @@
         border-color: #a97d5d;
     }
     .container-fluid {
+        border-radius: 25px;
         background-color:rgb(255, 255, 255); 
         padding: 20px;
     }
