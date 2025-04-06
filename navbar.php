@@ -1,35 +1,32 @@
-<nav class="navbar navbar-expand-lg bg-light shadow" style="background-color:rgb(252, 240, 216) !important;">
-  <div class="container">
-    
-    <a class="navbar-brand" href="#" style="color: #8b5a2b; font-weight: bold;">
-        Kopikuys
+<nav class="sb-topnav navbar navbar-expand navbar-light" style="background-color: #f5f5dc;">
+
+    <a class="navbar-brand ps-3 d-flex align-items-center" href="index.html" style="color: #5a4a42; font-weight: bold;">
+        <img src="img/Kopikuys Logo.png" alt="KOPIKUYS Logo" style="width: 80px; height: 80px; margin-right: 0px;">
+        KOPIKUYS
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+        <i class="fas fa-bars" style="color: #5a4a42;"></i>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" href="index.php" style="color: #8b5a2b;">Home</a>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn" id="btnNavbarSearch" type="button" style="background-color: #d2b48c; color: white;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user fa-fw" style="color: #5a4a42;"></i>
+                <?= $_SESSION['loggedInUser']['username'];?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background-color: #f5f5dc;">
+
+                <li><a class="dropdown-item" href="../../logout.php" style="color: #5a4a42;">Logout</a></li>
+            </ul>
         </li>
-        
-        <?php if(isset($_SESSION['loggedIn'])) : ?>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="color: #8b5a2b;"><?= $_SESSION['loggedInUser']['username'];?></a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-danger" href="logout.php" style="background-color: #8b5a2b; border-color: #8b5a2b;">
-            Logout
-          </a>
-        </li>
-        <?php else: ?>
-        <li class="nav-item">
-          <a class="nav-link" href="login.php" style="color: #8b5a2b;">Login</a>
-        </li>
-        <?php endif; ?>
-      </ul>
-    </div>
-  </div>
+    </ul>
 </nav>

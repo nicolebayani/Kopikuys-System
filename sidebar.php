@@ -35,6 +35,19 @@
                         <a class="nav-link" href="categories.php" style="color: #5a4a42;">View Categories</a>
                     </nav>
                 </div>
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct" style="color: #5a4a42;">
+                    <div class="sb-nav-link-icon"><i class="fas fa-coffee" style="color: #5a4a42;"></i></div>
+                    Products
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
+                </a>
+                <div class="collapse" id="collapseProduct" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="products-create.php" style="color: #5a4a42;">Create Products</a>
+                        <a class="nav-link" href="products.php" style="color: #5a4a42;">View Products</a>
+                    </nav>
+                </div>
+
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     </div>
 
