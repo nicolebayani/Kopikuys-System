@@ -148,7 +148,7 @@ if(isset($_POST['saveProduct']))
         $filename = time().'.'.$image_ext;
     
         if(!is_dir($path)) {
-            mkdir($path, 0777, true); // Ensure the directory exists
+            mkdir($path, 0777, true); 
         }
     
         if(move_uploaded_file($_FILES['image']['tmp_name'], $path."/".$filename)) {
@@ -206,7 +206,7 @@ if(isset($_POST['updateProduct']))
         $filename = time().'.'.$image_ext;
     
         if(!is_dir($path)) {
-            mkdir($path, 0777, true); // Ensure the directory exists
+            mkdir($path, 0777, true); 
         }
     
         if(move_uploaded_file($_FILES['image']['tmp_name'], $path."/".$filename)) {

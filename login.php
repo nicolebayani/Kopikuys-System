@@ -34,8 +34,9 @@ if(isset($_SESSION['loggedIn'])){
         border-color: #8b5a2b;
     }
     .btn-primary:hover {
-        background-color: #6f4221;
+        background-color:rgb(255, 252, 252);
         border-color: #6f4221;
+        color: #8b5a2b;
     }
     label {
         font-weight: bold;

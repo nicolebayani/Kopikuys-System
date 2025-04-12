@@ -9,12 +9,12 @@
                 </a>
                 <div class="sb-sidenav-menu-heading" style="color: #5a4a42;">Manage Orders and Categories</div>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages" style="color: #5a4a42;">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapsePages" style="color: #5a4a42;">
                     <div class="sb-nav-link-icon"><i class="fas fa-coffee" style="color: #5a4a42;"></i></div>
                     Orders
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="collapseOrders" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="orders-create.php" style="color: #5a4a42;">Create Order</a>
                         <a class="nav-link" href="orders.php" style="color: #5a4a42;">View Orders</a>
@@ -24,12 +24,12 @@
                     </div>
 
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages" style="color: #5a4a42;">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false" aria-controls="collapsePages" style="color: #5a4a42;">
                     <div class="sb-nav-link-icon"><i class="fas fa-coffee" style="color: #5a4a42;"></i></div>
                     Categories
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="color: #5a4a42;"></i></div>
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="collapseCategories" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="categories-create.php" style="color: #5a4a42;">Create Category</a>
                         <a class="nav-link" href="categories.php" style="color: #5a4a42;">View Categories</a>
