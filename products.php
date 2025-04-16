@@ -49,6 +49,7 @@
         background-color: #8c7355;
     }
     .btn-success, .btn-danger {
+        background-color: #a0896b;
         font-size: 0.9rem;
         padding: 5px 10px;
     }
@@ -88,7 +89,7 @@
         <div class="card-body">
             <?php alertMessage();
 
-                        if(isset($_GET['category']) && is_numeric($_GET['category'])) {
+                if(isset($_GET['category']) && is_numeric($_GET['category'])) {
                 $categoryId = $_GET['category'];
                 $products = mysqli_query($conn, "SELECT * FROM products WHERE category_id = $categoryId");
             } else {
@@ -104,13 +105,17 @@
                         <div class="product-info">
                             <div class="product-name"><?= $item['name'] ?></div>
                             <div class="product-category">
-                                Category: 
                                 <strong>
                                     <?php 
                                         $category = getById('categories', $item['category_id']);
-                                        echo $category ? $category['name'] : 'Unknown';
                                     ?>
                                 </strong>
+                            </div>
+                            <div class="product-quantity">
+                                Quantity: <strong><?= $item['quantity'] ?></strong>
+                            </div>
+                            <div class="product-price">
+                                Price: <strong>₱<?= number_format($item['price'], 2) ?></strong>
                             </div>
 
                             <div class="mb-2">
