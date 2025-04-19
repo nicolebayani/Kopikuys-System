@@ -56,14 +56,22 @@
                 <div class="row">
                 <div class="col-md-3 mb-3">
                         <label for="">Select Product *</label>
-                        <select name="product_id" class="form-select">
+                        <select name="product_id" class="form-select mySelect2">
                             <option value="" >-- Select Product --</option>
                             <?php
                                 $products = getAll('products');
                                 if($products){
-
+                                    if(mysqli_num_rows($products) > 0){
+                                        foreach($products as $prodItem){
+                                            ?>
+                                            <option value="<? $prodItem['id']; ?>"><?= $prodItem['name']; ?></option>
+                                            <?php
+                                        }
+                                    }else{
+                                        echo "<option value=''>No Product Found</option>";
+                                    }
                                 }else{
-                                    echo "<option value=''>Something Went Wrong</option>";
+                                    echo "<option value=''>Something Went Wrong </option>";
                                 }
                             ?>
                         </select>
@@ -78,6 +86,60 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4 class="mb-0">Products</h4>
+        </div>
+        <div class="card-body">
+            <?php
+            if(isset($_SESSION['productItems'])){
+
+                ?>
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $i = 1;
+                                foreach($sessionProducts as $key => $item) : ?>
+                                <tr>
+                                    <td><?= $key; ?></td>
+                                    <td><?= $item['name']; ?></td>
+                                    <td><?= $item['price']; ?></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <button class="input-group-text">-</button>
+                                            <input type="text" value="<? =$item['quantity']; ?>" class="qty quantityInput" />
+                                            <button class="input-group-text">+</button>
+                                        </div>
+                                    </td>
+                                    <td> <?= number_format($item['price'] * $item['quantity'], 0); ?> </td>
+                                    <td>
+                                        <a href="order-item-delete.php?index="<?= $key; ?> class="btn btn-danger">Remove</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php
+
+            }else{
+                echo '<h5> No Products Added </h5>';
+            }   
+            ?>
         </div>
     </div>
 </div>
