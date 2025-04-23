@@ -15,21 +15,20 @@ if(isset($_POST['addItem'])){
     $quantity = validate($_POST['quantity']);
 
     $checkProduct = mysqli_query($conn, "SELECT * FROM products WHERE id='$productId' LIMIT 1");
-    if($checkProduct){
-        if(mysqli_num_rows($checkProduct) > 0){
+    if($checkProduct && mysqli_num_rows($checkProduct) > 0){
+        
+        $row = mysqli_fetch_assoc($checkProduct);
+        if ($quantity > $row['quantity']) {
+            redirect('orders-create.php', 'Only ' . $row['quantity'] . ' quantity available!');
+        }
 
-            $row = mysqli_fetch_assoc($checkProduct);
-                redirect('orders-create.php', 'Only ' . $row['quantity'] . ' quantity available!');
-                redirect('orders-create.php','Only' .$row['quantity']. 'quantity available!');
-            }
-
-            $productData = [
-                'product_id' => $row['id'],
-                'name' => $row['name'],
-                'image' => $row['image'],
-                'price' => $row['price'],
-                'quantity' => $quantity,
-            ];
+        $productData = [
+            'product_id' => $row['id'],
+            'name' => $row['name'],
+            'image' => $row['image'],
+            'price' => $row['price'],
+            'quantity' => $quantity,
+        ];
 
             if(!in_array($row['id'], $_SESSION['productItemsIds'])){
 
@@ -50,16 +49,16 @@ if(isset($_POST['addItem'])){
                             'quantity' => $newQuantity,
                         ];
                         $_SESSION['productItems'][$key] = $productData;
-
-                        }
-                    }
-                redirect('orders-create.php', 'Product Added Successfully! ' . $row['name']);
+                    }    
+                }     
             }
-
+            redirect('orders-create.php', 'Product Added Successfully! ' .$row['name']);
+            
+         }else{
             redirect('orders-create.php', 'Product Not Found!');
-        }
+         } 
+        
+    }else{
         redirect('orders-create.php', 'Something Went Wrong!');
-
-    }
-
+        }
 ?>

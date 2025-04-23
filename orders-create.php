@@ -64,7 +64,7 @@
                                     if(mysqli_num_rows($products) > 0){
                                         foreach($products as $prodItem){
                                             ?>
-                                            <option value="<? $prodItem['id']; ?>"><?= $prodItem['name']; ?></option>
+                                            <option value="<?= $prodItem['id']; ?>"><?= $prodItem['name']; ?></option>
                                             <?php
                                         }
                                     }else{
@@ -96,6 +96,7 @@
         <div class="card-body">
             <?php
             if(isset($_SESSION['productItems'])){
+                $sessionProducts = $_SESSION['productItems'];
 
                 ?>
                 <div class="table-responsive mb-3">
@@ -121,13 +122,13 @@
                                     <td>
                                         <div class="input-group">
                                             <button class="input-group-text">-</button>
-                                            <input type="text" value="<? =$item['quantity']; ?>" class="qty quantityInput" />
+                                            <input type="text" value="<?= $item['quantity']; ?>" class="qty quantityInput" />
                                             <button class="input-group-text">+</button>
                                         </div>
                                     </td>
                                     <td> <?= number_format($item['price'] * $item['quantity'], 0); ?> </td>
                                     <td>
-                                        <a href="order-item-delete.php?index="<?= $key; ?> class="btn btn-danger">Remove</a>
+                                        <a href="order-item-delete.php?index=<?= $key; ?>" class="btn btn-danger">Remove</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
