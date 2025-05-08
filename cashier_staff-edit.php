@@ -24,7 +24,8 @@
         border-color: #a97d5d;
     }
     .btn-primary:hover {
-        background-color: #8c7355;
+        background-color:rgb(255, 255, 255);
+        color: #8c7355;
     }
     .btn-secondary {
         background-color: #8c7355;

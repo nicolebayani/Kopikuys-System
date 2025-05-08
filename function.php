@@ -168,5 +168,3 @@ function jsonResponse($status, $status_type, $message){
     echo json_encode($response);
     return;
 }
-
-?>

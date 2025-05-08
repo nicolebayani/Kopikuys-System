@@ -24,7 +24,8 @@
         border-color: #8c7355;
     }
     .btn-primary:hover {
-        background-color: #8c7355;
+        background-color:rgb(255, 255, 255);
+        color: #8c7355;
     }
     .btn-success {
         background-color: #a89c86;
@@ -61,7 +62,6 @@
                 <table class="table table-striped table-bordered beige-table">
                     <thead> 
                         <tr>
-                            <th>ID</th>
                             <th>First Name</th>
                             <th>Middle Name</th>
                             <th>Last Name</th>
@@ -74,7 +74,6 @@
                     <tbody>
                         <?php foreach($cashier_staff as $cashier_staffItem) :?>
                         <tr>
-                            <td><?= $cashier_staffItem['id'] ?></td>
                             <td><?= $cashier_staffItem['first_name'] ?></td>
                             <td><?= $cashier_staffItem['middle_name'] ?></td>
                             <td><?= $cashier_staffItem['last_name'] ?></td>

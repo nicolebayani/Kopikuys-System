@@ -24,7 +24,8 @@
         border-color: #8c7355;
     }
     .btn-primary:hover {
-        background-color: #8c7355;
+        background-color:rgb(255, 255, 255);
+        color: #8c7355;
     }
     .btn-success {
         background-color: #8c7355;
@@ -61,7 +62,6 @@
                 <table class="table table-striped table-bordered beige-table">
                     <thead> 
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -70,7 +70,6 @@
                     <tbody>
                         <?php foreach($categories as $item) :?>
                         <tr>
-                            <td><?= $item['id'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td>
                                 <?php if($item['status'] == 1){

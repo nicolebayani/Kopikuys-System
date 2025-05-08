@@ -1,70 +1,84 @@
-document.addEventListener("DOMContentLoaded", function () {
-    alertify.set("notifier", "position", "top-center");
-    document.querySelectorAll(".increment").forEach(function (button) {
-        button.addEventListener("click", function () {
-            const qtyInput = this.closest(".qtyBox").querySelector(".quantityInput");
-            const prodId = this.closest(".qtyBox").querySelector(".prodId").value;
-            let quantity = parseInt(qtyInput.value);
+let selectedProducts = {};
 
-            if (!isNaN(quantity)) {
-                quantity++;
-                qtyInput.value = quantity;
+function formatCurrency(amount) {
+    return parseFloat(amount).toFixed(2);
+}
 
-                updateProductTotal(this, prodId, quantity);
-                alertify.success("Quantity Increased!");
-            }
-        });
-    });
+function renderSelectedProducts() {
+    const container = document.getElementById('selectedProducts');
+    container.innerHTML = '';
 
-    document.querySelectorAll(".decrement").forEach(function (button) {
-        button.addEventListener("click", function () {
-            const qtyInput = this.closest(".qtyBox").querySelector(".quantityInput");
-            const prodId = this.closest(".qtyBox").querySelector(".prodId").value;
-            let quantity = parseInt(qtyInput.value);
+    if (Object.keys(selectedProducts).length === 0) {
+        container.innerHTML = '<p class="text-muted text-center">No products selected.</p>';
+        document.getElementById('grandTotal').textContent = '0.00';
+        return;
+    }
 
-            if (!isNaN(quantity) && quantity > 1) {
-                quantity--;
-                qtyInput.value = quantity;
+    let total = 0;
 
-                updateProductTotal(this, prodId, quantity);
-                alertify.error("Quantity Decreased!");
-            }
-        });
-    });
+    for (const id in selectedProducts) {
+        const item = selectedProducts[id];
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
 
-    function updateProductTotal(button, prodId, quantity) {
-        const row = button.closest("tr");
-        const priceCell = row.querySelector("td:nth-child(3)");
-        const totalPriceCell = row.querySelector("td:nth-child(5)");
+        const productCard = document.createElement('div');
+        productCard.className = 'card mb-3 border-0 shadow-sm';
 
-        const price = parseFloat(priceCell.textContent);
+        productCard.innerHTML = `
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1 fw-bold">${item.name}</h6>
+                    <small class="text-muted">₱${formatCurrency(item.price)} x 
+                        <span id="qty-${id}" class="fw-semibold">${item.quantity}</span> = 
+                        ₱<span id="subtotal-${id}" class="fw-bold">${formatCurrency(subtotal)}</span>
+                    </small>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="updateQty(${id}, -1)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="updateQty(${id}, 1)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" name="products[${id}][id]" value="${id}">
+            <input type="hidden" name="products[${id}][name]" value="${item.name}">
+            <input type="hidden" name="products[${id}][price]" value="${item.price}">
+            <input type="hidden" name="products[${id}][quantity]" id="input-qty-${id}" value="${item.quantity}">
+        `;
+        container.appendChild(productCard);
+    }
 
-        if (!isNaN(price)) {
-            const totalPrice = price * quantity;
-            totalPriceCell.textContent = totalPrice.toLocaleString(); 
+    document.getElementById('grandTotal').textContent = formatCurrency(total);
+}
+
+function updateQty(id, change) {
+    if (!selectedProducts[id]) return;
+
+    selectedProducts[id].quantity += change;
+    if (selectedProducts[id].quantity <= 0) {
+        delete selectedProducts[id];
+    }
+    renderSelectedProducts();
+}
+
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const name = card.getAttribute('data-name');
+        const price = parseFloat(card.getAttribute('data-price'));
+
+        if (!selectedProducts[id]) {
+            selectedProducts[id] = {
+                name: name,
+                price: price,
+                quantity: 1
+            };
+        } else {
+            selectedProducts[id].quantity += 1;
         }
 
-        updateSessionProduct(prodId, quantity);
-    }
-
-    function updateSessionProduct(prodId, quantity) {
-        fetch("update-session.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ product_id: prodId, quantity: quantity }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    console.log("Session updated successfully");
-                } else {
-                    console.error("Failed to update session");
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    }
+        renderSelectedProducts();
+    });
 });
