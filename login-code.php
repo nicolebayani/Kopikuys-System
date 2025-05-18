@@ -29,7 +29,7 @@ if(isset($_POST['loginBtn'])){
 
                 ];
 
-                redirect('admin/assets/admins-create.php','Logged In Successfully.');
+                redirect('admin/assets/dashboard.php','Logged In Successfully.');
 
             }else{
                 redirect('login.php','Invalid Username');

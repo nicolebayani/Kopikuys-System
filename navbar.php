@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-light shadow" style="background-color:rgb(252, 240, 216) !important;">
   <div class="container">
     
-    <a class="navbar-brand" href="#" style="color: #8b5a2b; font-weight: bold;">
-        Kopikuys
+    <a class="navbar-brand" href="/Kopikuys/admin/assets/dashboard.php" style="color: #8b5a2b; font-weight: bold;">
+      Kopikuys
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

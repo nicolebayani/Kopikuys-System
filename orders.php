@@ -75,15 +75,18 @@
                     <div class="col-md-4">
                         <div class="order-card">
                             <div class="order-info">
-                                <div class="order-title">Order #<?= $order['id'] ?></div>
-                                <div class="mb-2">
+                                <div class="order-title">Order ID #<?= $order['id'] ?></div>
+                               <div class="mb-2">
                                     Customer: <strong><?= htmlspecialchars($order['customer_name']) ?></strong><br>
                                     Total: <strong>₱<?= number_format($order['total'], 2) ?></strong><br>
                                     Payment: <strong><?= ucfirst($order['payment_mode']) ?></strong><br>
+
+                                    <?php if ($order['payment_mode'] === 'Cash'): ?>
+                                        Cash Received: <strong>₱<?= number_format($order['cash_received'], 2) ?></strong><br>
+                                        Change Due: <strong>₱<?= number_format($order['change_due'], 2) ?></strong><br>
+                                    <?php endif; ?>
+
                                     Created At: <strong><?= date('F j, Y, g:i a', strtotime($order['created_at'])) ?></strong>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="badge bg-success order-status">Placed</span>
                                 </div>
 
                                 

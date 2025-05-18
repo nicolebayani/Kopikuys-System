@@ -4,7 +4,7 @@ include('includes/header.php');
 
 if(isset($_SESSION['loggedIn'])){
     ?>
-    <script>window.location.href = 'index.php';</script>
+    <script>window.location.href = 'dashboard.php';</script>
     <?php
 }
 ?>

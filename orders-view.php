@@ -1,4 +1,5 @@
 <?php
+
 include('includes/header.php');
 include('../../config/dbcon.php');
 
@@ -21,14 +22,11 @@ if (mysqli_num_rows($order_result) == 0) {
 
 $order = mysqli_fetch_assoc($order_result);
 
-
 $invoice_number = "INV-" . date("Ymd") . "-" . rand(1000, 9999);
-
 
 $items_query = "SELECT * FROM order_items WHERE order_id = $order_id";
 $items_result = mysqli_query($conn, $items_query);
 $order_items = mysqli_fetch_all($items_result, MYSQLI_ASSOC);
-
 
 $order_date = date("F j, Y h:i A", strtotime($order['created_at']));
 ?>
@@ -97,12 +95,13 @@ $order_date = date("F j, Y h:i A", strtotime($order['created_at']));
                 <hr>
                 <p>Invoice #: <?= $invoice_number ?></p>
                 <p>Date: <?= $order_date ?></p>
-                <p>Order #: <?= $order['id'] ?></p>
+                <p>Order ID #: <?= $order['id'] ?></p>
             </div>
 
             <p><strong>Customer:</strong> <?= htmlspecialchars($order['customer_name']) ?></p>
             <p><strong>Payment Mode:</strong> <?= ucfirst($order['payment_mode']) ?></p>
             <p><strong>Status:</strong> Placed</p>
+            
 
             <hr>
             <h5>Items:</h5>
@@ -121,6 +120,11 @@ $order_date = date("F j, Y h:i A", strtotime($order['created_at']));
             </ul>
 
             <p class="receipt-total">Total: ₱<?= number_format($order['total'], 2) ?></p>
+
+            <?php if (strtolower($order['payment_mode']) === 'cash'): ?>
+                <p><strong>Cash:</strong> ₱<?= number_format($order['cash_received'], 2) ?></p>
+                <p><strong>Change Due:</strong> ₱<?= number_format($order['change_due'], 2) ?></p>
+            <?php endif; ?>
             <p style="text-align: center; margin-top: 30px;">Thank you for your purchase!</p>
         </div>
     </div>

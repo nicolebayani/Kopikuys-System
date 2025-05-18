@@ -102,10 +102,6 @@
                         <label for=""> Product Name *</label>
                         <input type="text" name="name" required value="<?= $product['data']['name']; ?>"class="form-control" />
                     </div>
-                <div class="col-md-12 mb-3">
-                        <label for="">Description </label>
-                        <textarea name="description" class="form-control" rows="3"><?=$product['data']['description'];?></textarea>
-                    </div>
                 <div class="col-md-4 mb-3">
                         <label for="">Price *</label>
                         <input type="text" name="price" required value="<?=$product['data']['price'];?>" class="form-control" />

@@ -1,4 +1,6 @@
-    <?php include ('includes/header.php'); ?>
+<?php
+
+ include ('includes/header.php'); ?>
 
     <style>
         .product-card {
@@ -8,10 +10,22 @@
             overflow: hidden;
             transition: 0.3s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .product-card.out-of-stock {
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+        
+        .product-card.out-of-stock .btn-success,
+        .product-card.out-of-stock .btn-danger {
+            filter: none !important;
+            opacity: 1 !important;
+            background-color: #a0896b;
         }
         .product-image {
             width: 100%;
@@ -54,6 +68,23 @@
             font-size: 0.9rem;
             padding: 5px 10px;
         }
+        .out-of-stock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 10px;
+            z-index: 2;
+            pointer-events: none;
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -69,7 +100,7 @@
                     foreach($categories as $cat):
             ?>
                 <a href="products.php?category=<?= $cat['id']; ?>" class="btn btn-light border rounded-pill px-4 py-2 shadow-sm d-flex align-items-center gap-2">
-                    <i class="fas fa-mug-hot    "></i> <?= htmlspecialchars($cat['name']) ?>
+                    <i class="fas fa-mug-hot"></i> <?= htmlspecialchars($cat['name']) ?>
                 </a>
             <?php 
                     endforeach;
@@ -100,8 +131,12 @@
                 <div class="row g-4">
                     <?php foreach($products as $item) : ?>
                     <div class="col-md-3">
-                        <div class="product-card">
+                        <div class="product-card<?= $item['quantity'] == 0 ? ' out-of-stock' : '' ?>">
                             <img src="../<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="product-image">
+
+                            <?php if($item['quantity'] == 0): ?>
+                                <div class="out-of-stock-overlay">Out of Stock</div>
+                            <?php endif; ?>
 
                             <div class="product-info">
                                 <div class="product-name"><?= $item['name'] ?></div>
@@ -120,7 +155,7 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <?php if($item['status'] == 1): ?>
+                                    <?php if(isset($item['status']) && $item['status'] == 1): ?>
                                         <span class="badge bg-danger badge-status">Not Available</span>
                                     <?php else: ?>
                                         <span class="badge bg-success badge-status">Available</span>

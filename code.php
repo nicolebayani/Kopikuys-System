@@ -134,7 +134,7 @@ if(isset($_POST['saveProduct']))
 {
     $category_id = validate($_POST['category_id']);
     $name = validate($_POST['name']);
-    $description = validate($_POST['description']);
+   
 
     $price = validate($_POST['price']);
     $quantity = validate($_POST['quantity']);
@@ -166,7 +166,7 @@ if(isset($_POST['saveProduct']))
     $data = [
         'category_id' =>  $category_id,
         'name' => $name,			
-        'description' => $description,
+        
         'price' => $price,
         'quantity' => $quantity,
         'image' => $finalImage,
@@ -192,7 +192,7 @@ if(isset($_POST['updateProduct']))
 
     $category_id = validate($_POST['category_id']); 
     $name = validate($_POST['name']);
-    $description = validate($_POST['description']);
+    
 
     $price = validate($_POST['price']);
     $quantity = validate($_POST['quantity']);
@@ -233,7 +233,7 @@ if(isset($_POST['updateProduct']))
     $data = [
         'category_id' =>  $category_id,
         'name' => $name,			
-        'description' => $description,
+    
         'price' => $price,
         'quantity' => $quantity,
         'image' => $finalImage,
