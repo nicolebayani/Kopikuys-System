@@ -15,6 +15,13 @@ if(isset($_POST['SaveCashier/Staff'])){
         $password = validate($_POST['password']);
         $position = validate($_POST['position']);
 
+        // Check if username already exists
+        $usernameCheck = mysqli_query($conn, "SELECT * FROM cashier_staff WHERE username='$username'");
+        if($usernameCheck && mysqli_num_rows($usernameCheck) > 0){
+            redirect('admins-create.php', 'Username already exists. Please choose another.');
+            exit;
+        }
+
         $bcrypt_password = password_hash($password, PASSWORD_BCRYPT);
 
         $data = [
@@ -38,6 +45,7 @@ if(isset($_POST['SaveCashier/Staff'])){
         redirect('admins-create.php', 'Please fill in all required fields.');
     }
 }
+
 
 if(isset($_POST['updateCashier/Staff'])){ 
     if (!empty($_POST['adminId']) && !empty($_POST['first_name']) && !empty($_POST['middle_name']) 
@@ -249,83 +257,5 @@ if(isset($_POST['updateProduct']))
     }    
         
 }
-
-if(isset($_POST['saveCustomer'])){
-
-    $name = validate($_POST['name']);
-    $phone = validate($_POST['phone']);
-    $email = validate($_POST['email']);
-    $status = isset($_POST['status']) ? 1:0;
-
-    if($name != ''){
-
-        $phoneCheck = mysqli_query($conn, "SELECT * FROM customers WHERE phone='$phone'");
-        if($phoneCheck){
-            if(mysqli_num_rows($phoneCheck) > 0){
-                redirect('customers.php', 'Phone number already exists.');
-            }
-        }
-
-        $data = [
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $email,
-            'status' => $status
-        ];
-
-        $result = insert('customers', $data);
-
-        if ($result){
-            redirect('customers.php', 'Customer Created Successfully.');
-        }else{
-            redirect('customers.php', 'Something Went Wrong.');
-        }
-
-    }else{
-
-        redirect('customers.php', 'Please fill in all required fields.');
-    }
-}
-
-if(isset($_POST['updateCustomer'])){
-
-    $customerId = validate($_POST['customerId']);
-
-    $name = validate($_POST['name']);
-    $phone = validate($_POST['phone']);
-    $email = validate($_POST['email']);
-    $status = isset($_POST['status']) ? 1:0;
-
-    if($name != ''){
-
-        $emailCheck = mysqli_query($conn, "SELECT * FROM customers WHERE email='$email' AND id!= '$customerId'");
-        if($emailCheck){
-            if(mysqli_num_rows($emailCheck) > 0){
-                redirect('customers-edit.php?id='.$customerId, 'Email already exists.');
-            }
-        }
-
-        $data = [
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $email,
-            'status' => $status
-        ];
-
-        $result = update('customers', $customerId, $data);
-
-        if ($result){
-            redirect('customers-edit.php?id='.$customerId, 'Customer Updated Successfully.');
-        }else{
-            redirect('customers-edit.php?id='.$customerId, 'Something Went Wrong.');
-        }
-
-    }else{
-
-        redirect('customers-edit.php?id='.$customerId, 'Please fill in all required fields.');
-    }
-}
-
-
 
 ?>

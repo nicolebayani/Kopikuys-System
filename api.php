@@ -1,64 +1,93 @@
 <?php
-include 'dbcon.php';
 
-header("Content-Type: application/json");
+header('Content-Type: application/json');
+include(__DIR__ . '/../config/dbcon.php');
 
-$method = $_SERVER['REQUEST_METHOD'];
-$input = json_decode(file_get_contents('php://input'), true);
 
-switch ($method) {
-    case 'GET':
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $result = $conn->query("SELECT * FROM cashier_staff WHERE id=$id");
-            $data = $result->fetch_assoc();
-            echo json_encode($data);
-        } else {
-            $result = $conn->query("SELECT * FROM cashier_staff");
-            $users = [];
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
-            }
-            echo json_encode($users);
-        }
-        break;
-
-    case 'POST':
-        $first_name = $input['first_name'];
-        $middle_name = $input['middle_name'];
-        $last_name = $input['last_name'];
-        $email = $input['email'];
-        $username = $input['username'];
-        $password = password_hash($input['password'], PASSWORD_BCRYPT);
-        $position = $input['position'];
-        $conn->query("INSERT INTO cashier_staff (first_name, middle_name, last_name, email, username, password, position) 
-                      VALUES ('$first_name', '$middle_name', '$last_name', '$email', '$username', '$password', '$position')");
-        echo json_encode(["message" => "Cashier/Staff added successfully"]);
-        break;
-
-    case 'PUT':
-        $id = $_GET['id'];
-        $first_name = $input['first_name'];
-        $middle_name = $input['middle_name'];
-        $last_name = $input['last_name'];
-        $email = $input['email'];
-        $username = $input['username'];
-        $password = password_hash($input['password'], PASSWORD_BCRYPT);
-        $position = $input['position'];
-        $conn->query("UPDATE cashier_staff SET first_name='$first_name', middle_name='$middle_name', last_name='$last_name', email='$email', username='$username', password='$password', position='$position' WHERE id=$id");
-        echo json_encode(["message" => "Cashier/Staff updated successfully"]);
-        break;
-
-    case 'DELETE':
-        $id = $_GET['id'];
-        $conn->query("DELETE FROM users WHERE id=$id");
-        echo json_encode(["message" => "Cashier/Staff deleted successfully"]);
-        break;
-
-    default:
-        echo json_encode(["message" => "Invalid request method"]);
-        break;
+function getTableColumns($conn, $table) {
+    $cols = [];
+    $res = mysqli_query($conn, "DESCRIBE `$table`");
+    while($row = mysqli_fetch_assoc($res)) $cols[] = $row['Field'];
+    return $cols;
 }
 
-$conn->close();
+
+$table = isset($_GET['table']) ? mysqli_real_escape_string($conn, $_GET['table']) : '';
+$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+
+$tables = [];
+$res = mysqli_query($conn, "SHOW TABLES");
+while($row = mysqli_fetch_array($res)) $tables[] = $row[0];
+if(!in_array($table, $tables)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Invalid table']);
+    exit;
+}
+
+
+$method = $_SERVER['REQUEST_METHOD'];
+$columns = getTableColumns($conn, $table);
+
+switch($method) {
+    case 'GET':
+        if($id) {
+            $q = mysqli_query($conn, "SELECT * FROM `$table` WHERE id=$id");
+            echo json_encode(mysqli_fetch_assoc($q));
+        } else {
+            $q = mysqli_query($conn, "SELECT * FROM `$table`");
+            $data = [];
+            while($row = mysqli_fetch_assoc($q)) $data[] = $row;
+            echo json_encode($data);
+        }
+        break;
+    case 'POST':
+        $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        $fields = [];
+        $values = [];
+        foreach($columns as $col) {
+            if($col == 'id') continue;
+            if(isset($input[$col])) {
+                $fields[] = "`$col`";
+                $values[] = "'" . mysqli_real_escape_string($conn, $input[$col]) . "'";
+            }
+        }
+        $sql = "INSERT INTO `$table` (" . implode(',', $fields) . ") VALUES (" . implode(',', $values) . ")";
+        if(mysqli_query($conn, $sql)) {
+            echo json_encode(['success' => true, 'id' => mysqli_insert_id($conn)]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => mysqli_error($conn)]);
+        }
+        break;
+    case 'PUT':
+        if(!$id) { http_response_code(400); echo json_encode(['error'=>'Missing id']); exit; }
+        $input = json_decode(file_get_contents('php://input'), true);
+        $sets = [];
+        foreach($columns as $col) {
+            if($col == 'id' || !isset($input[$col])) continue;
+            $sets[] = "`$col`='" . mysqli_real_escape_string($conn, $input[$col]) . "'";
+        }
+        $sql = "UPDATE `$table` SET " . implode(',', $sets) . " WHERE id=$id";
+        if(mysqli_query($conn, $sql)) {
+            echo json_encode(['success' => true]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => mysqli_error($conn)]);
+        }
+        break;
+    case 'DELETE':
+        if(!$id) { http_response_code(400); echo json_encode(['error'=>'Missing id']); exit; }
+        $sql = "DELETE FROM `$table` WHERE id=$id";
+        if(mysqli_query($conn, $sql)) {
+            echo json_encode(['success' => true]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => mysqli_error($conn)]);
+        }
+        break;
+    default:
+        http_response_code(405);
+        echo json_encode(['error' => 'Method not allowed']);
+}
 ?>
