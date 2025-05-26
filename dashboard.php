@@ -1,4 +1,5 @@
 <?php
+
 include('includes/header.php');
 include('../../config/dbcon.php');
 ?>
@@ -30,7 +31,8 @@ include('../../config/dbcon.php');
 
 <?php
 
-$total_sales = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total) as total_sales FROM orders"))['total_sales'] ?? 0;
+// Change: Get today's sales only
+$todays_sales = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total) as todays_sales FROM orders WHERE DATE(created_at) = CURDATE()"))['todays_sales'] ?? 0;
 
 $order_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as order_count FROM orders"))['order_count'] ?? 0;
 
@@ -57,6 +59,8 @@ while($row = mysqli_fetch_assoc($daily_sales_result)){
     $daily_totals[] = $row['daily_total'];
 }
 
+// Remove monthly sales query and variables
+/*
 $monthly_sales_result = mysqli_query($conn, "
     SELECT DATE_FORMAT(created_at, '%M') as sale_month, SUM(total) as monthly_total 
     FROM orders 
@@ -70,7 +74,7 @@ while($row = mysqli_fetch_assoc($monthly_sales_result)){
     $monthly_labels[] = $row['sale_month'];
     $monthly_totals[] = $row['monthly_total'];
 }
-
+*/
 
 $payment_mode_result = mysqli_query($conn, "
     SELECT payment_mode, COUNT(*) as mode_count
@@ -87,8 +91,8 @@ while($row = mysqli_fetch_assoc($payment_mode_result)){
 
         <div class="col-md-3">
             <div class="dashboard-card">
-                <div class="dashboard-title">Total Sales</div>
-                <div class="dashboard-value">₱<?= number_format($total_sales, 2) ?></div>
+                <div class="dashboard-title">Today's Sales</div>
+                <div class="dashboard-value">₱<?= number_format($todays_sales, 2) ?></div>
             </div>
         </div>
         <div class="col-md-3">
@@ -127,10 +131,13 @@ while($row = mysqli_fetch_assoc($payment_mode_result)){
             <canvas id="dailySalesChart"></canvas>
         </div>
 
+        <!-- Remove Monthly Sales Chart Section -->
+        <!--
         <div class="col-md-6 mt-5">
             <h5 class="mb-3" style="color: #5a4a42;">Monthly Sales (<?= date('Y') ?>)</h5>
             <canvas id="monthlySalesChart"></canvas>
         </div>
+        -->
 
         <div class="col-md-6 mt-5">
             <h5 class="mb-3" style="color: #5a4a42;">Payment Mode Breakdown</h5>
@@ -161,7 +168,8 @@ while($row = mysqli_fetch_assoc($payment_mode_result)){
         }
     });
 
-
+    // Remove Monthly Sales Chart JS
+    /*
     new Chart(document.getElementById('monthlySalesChart').getContext('2d'), {
         type: 'line',
         data: {
@@ -181,7 +189,7 @@ while($row = mysqli_fetch_assoc($payment_mode_result)){
             }
         }
     });
-
+    */
 
     new Chart(document.getElementById('paymentModeChart').getContext('2d'), {
         type: 'doughnut',
